@@ -26,7 +26,7 @@ public class DisplayDocServlet extends HttpServlet {
 	
 	String url = "jdbc:mysql://mysql.railway.internal:3306/omnidocs";
 	String user = "root";
-	String password = "Pragati@2008";
+	String password = "Pragati2008";
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<DocClass> docLst = new ArrayList<>();
 		

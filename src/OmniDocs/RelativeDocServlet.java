@@ -25,7 +25,7 @@ public class RelativeDocServlet extends HttpServlet {
 	
 	String url = "jdbc:mysql://mysql.railway.internal:3306/omnidocss";
 	String user = "root";
-	String password = "Pragati@2008";
+	String password = "Pragati2008";
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

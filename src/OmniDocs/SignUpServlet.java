@@ -25,7 +25,7 @@ public class SignUpServlet extends HttpServlet {
 	
 	String url = "jdbc:mysql://mysql.railway.internal:3306/omnidocs";
 	String user = "root";
-	String password = "Pragati@2008";
+	String password = "Pragati2008";
 	    
     public SignUpServlet() {
         super();
@@ -55,7 +55,7 @@ public class SignUpServlet extends HttpServlet {
 	        e.printStackTrace();
 	    }
 	    
-	    try (java.sql.Connection mycon = DriverManager.getConnection("jdbc:mysql://mysql.railway.internal:3306/omnidocs", "root", "Pragati@2008");
+	    try (java.sql.Connection mycon = DriverManager.getConnection("jdbc:mysql://mysql.railway.internal:3306/omnidocs", "root", "Pragati2008");
 	         CallableStatement mystmt = mycon.prepareCall("{call adduser(?, ?, ?)}");
 	         CallableStatement stmt = mycon.prepareCall("{call usertable(?)}")) {
 
