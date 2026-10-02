@@ -23,7 +23,7 @@ public class ChangePassServlet extends HttpServlet {
 	java.sql.Statement mystmt = null;
 	java.sql.ResultSet myrs = null;
 	
-	private static final String URL = "jdbc:mysql://localhost:3306/omnidocs";
+	private static final String URL = "jdbc:mysql://mysql.railway.internal:3306/omnidocs";
 	private static final String USER_ID = "root";
 	private static final String PASSWORD = "Pragati@2008";
 	
