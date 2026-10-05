@@ -75,19 +75,20 @@ public class AddRelativedocServlet extends HttpServlet {
 		String uniqueFileName = UUID.randomUUID().toString() + "_" + FileName;
 		
 		//getting the whole path
-		String uploadPath = "C:\\Users\\pc100\\eclipse-workspace\\DocManager\\WebContent\\uploads";
-		File uploaddir = new File(uploadPath);
-		
-		/*if (uploaddir.exists()) {
-		    response.getWriter().write("File saved successfully at: " + uploaddir.getAbsolutePath());
-		} else {
-		    response.getWriter().write("File was NOT saved!");
-		}*/
+		// 1. Calculate the real application workspace deployment directory automatically
+		String appPath = request.getServletContext().getRealPath("");
+		String uploadPath = appPath + java.io.File.separator + "uploads";
 
-	    docfile.write(uploadPath + File.separator + uniqueFileName);
-		//System.out.println("File successfully uploaded: "+FileName);
+		// 2. Ensure the storage target directory folder is built inside the cloud server
+		java.io.File uploaddir = new java.io.File(uploadPath);
+		if (!uploaddir.exists()) {
+		    uploaddir.mkdir();
+		}
 
-	    
+		// 3. Write your document file to disk using explicit full package path separators
+		docfile.write(uploadPath + java.io.File.separator + uniqueFileName);
+
+	    	    
 		String docNote = request.getParameter("documentNote");
 		System.out.println("documment note is: "+docNote);
 
