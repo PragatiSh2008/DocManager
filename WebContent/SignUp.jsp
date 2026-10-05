@@ -58,6 +58,18 @@
 <%
 	}
 %>
+
+<%
+    String error = request.getParameter("error");
+    if ("email_exists".equals(error)) {
+%>
+        <div style="color: red; font-weight: bold; margin-bottom: 15px;">
+            An account with this email address already exists! Please try logging in.
+        </div>
+<%
+    }
+%>
+
 <body style="background-color:#FEF8E5 ">
 	
 	<h1 style="text-align:center;font-size:3rem;margin-top:70px;">Sign Up For OmniDocs!!</h1>

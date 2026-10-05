@@ -86,11 +86,21 @@ public class SignUpServlet extends HttpServlet {
 	            response.sendRedirect("SignUp.jsp?success1=no");
 	        }
 
-	    } catch (SQLException e) {
+	        } catch (SQLException e) {
 	        e.printStackTrace();
 	        System.out.println("SQL Error Code: " + e.getErrorCode());
 	        System.out.println("SQL State: " + e.getSQLState());
-	        out.write("Database error: " + e.getMessage());
+	        
+	        // Check if the error is due to a duplicate EmailId entry
+	        if (e.getErrorCode() == 1062) {
+	            response.sendRedirect("SignUp.jsp?error=email_exists");
+	            return;
+	        }
+	        
+	        // Fallback for any other unexpected database issues
+	        response.sendRedirect("SignUp.jsp?success1=no");
+	        return;
+
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	        response.sendRedirect("SignUp.jsp?success1=no");
