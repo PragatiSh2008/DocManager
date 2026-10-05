@@ -46,16 +46,7 @@ public class AddDocumentServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
-		try {
-	        // Initialize the connection inside the method where exceptions can be thrown or caught
-	        mycon = OmniDocs.DbConnection.getConnection();
-	        
-	        // ... Your database operations go here ...
-	        
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-		
+				
 		response.setContentType("text/plain");
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
@@ -75,9 +66,14 @@ public class AddDocumentServlet extends HttpServlet {
 		String FileName = docfile.getSubmittedFileName();
 		String uniqueFileName = UUID.randomUUID().toString() + "_" + FileName;
 		
-		//getting the whole path
-		String uploadPath = "C:\\Users\\pc100\\eclipse-workspace\\DocManager\\WebContent\\uploads";
-		File uploaddir = new File(uploadPath);
+		String appPath = request.getServletContext().getRealPath("");
+		String uploadPath = appPath + java.io.File.separator + "uploads";
+
+		java.io.File uploaddir = new java.io.File(uploadPath);
+		if (!uploaddir.exists()) {
+		    uploaddir.mkdir();
+		}
+
 		
 		/*if (uploaddir.exists()) {
 		    response.getWriter().write("File saved successfully at: " + uploaddir.getAbsolutePath());
@@ -85,7 +81,7 @@ public class AddDocumentServlet extends HttpServlet {
 		    response.getWriter().write("File was NOT saved!");
 		}*/
 
-	    docfile.write(uploadPath + File.separator + uniqueFileName);
+		docfile.write(uploadPath + java.io.File.separator + uniqueFileName);
 		//System.out.println("File successfully uploaded: "+FileName);
 
 	    
