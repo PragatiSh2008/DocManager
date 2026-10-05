@@ -23,9 +23,9 @@ public class SignUpServlet extends HttpServlet {
 	java.sql.Statement mystmt = null;
 	java.sql.ResultSet myrs = null;
 	
-	String url = "jdbc:mysql://mysql.railway.internal:3306/omnidocs";
+	/*String url = "jdbc:mysql://mysql.railway.internal:3306/omnidocs";
 	String user = "root";
-	String password = "Pragati2008";
+	String password = "Pragati2008";*/
 	    
     public SignUpServlet() {
         super();
@@ -34,6 +34,15 @@ public class SignUpServlet extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+	        // Initialize the connection inside the method where exceptions can be thrown or caught
+	        mycon = OmniDocs.DbConnection.getConnection();
+	        
+	        // ... Your database operations go here ...
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } 
 		response.setContentType("text/plain");
 	    PrintWriter out = response.getWriter();
 
@@ -55,9 +64,10 @@ public class SignUpServlet extends HttpServlet {
 	        e.printStackTrace();
 	    }
 	    
-	    try (java.sql.Connection mycon = DriverManager.getConnection("jdbc:mysql://mysql.railway.internal:3306/omnidocs", "root", "Pragati2008");
+	    try {
+		     mycon = OmniDocs.DbConnection.getConnection();
 	         CallableStatement mystmt = mycon.prepareCall("{call adduser(?, ?, ?)}");
-	         CallableStatement stmt = mycon.prepareCall("{call usertable(?)}")) {
+	         CallableStatement stmt = mycon.prepareCall("{call usertable(?)}");
 
 	        // Insert user into the main users table
 	        mystmt.setString(1, name);

@@ -25,11 +25,22 @@ public class AddRelativeServlet extends HttpServlet {
 		java.sql.Statement mystmt = null;
 		java.sql.ResultSet myrs = null;
 		
-		String url = "jdbc:mysql://mysql.railway.internal:3306/omnidocs";
-		String user = "root";
-		String password = "Pragati2008";
+		/*
+		 * String url = "jdbc:mysql://mysql.railway.internal:3306/omnidocs"; String user
+		 * = "root"; String password = "Pragati2008";
+		 */
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		try {
+	        // Initialize the connection inside the method where exceptions can be thrown or caught
+	        mycon = OmniDocs.DbConnection.getConnection();
+	        
+	        // ... Your database operations go here ...
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } 
 		response.setContentType("text/plain");
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
@@ -57,9 +68,9 @@ public class AddRelativeServlet extends HttpServlet {
 	    }
 	    relativeclass.clear();
 	    try {
-			Class.forName("com.mysql.cj.jdbc.Driver");			
-			mycon = DriverManager.getConnection(url, user, password);
 			
+	        mycon = OmniDocs.DbConnection.getConnection();
+
 			CallableStatement mystmt = mycon.prepareCall("{call getrelative(?)}");
 			
 			mystmt.setString(1, tableName);
@@ -94,6 +105,16 @@ public class AddRelativeServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		try {
+	        // Initialize the connection inside the method where exceptions can be thrown or caught
+	        mycon = OmniDocs.DbConnection.getConnection();
+	        
+	        // ... Your database operations go here ...
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } 
 		response.setContentType("text/plain");
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
@@ -123,8 +144,8 @@ public class AddRelativeServlet extends HttpServlet {
 	    }
 	    
 	    try {
-			Class.forName("com.mysql.cj.jdbc.Driver");			
-			mycon = DriverManager.getConnection(url, user, password);
+	        mycon = OmniDocs.DbConnection.getConnection();
+
 			
 			CallableStatement mystmt = mycon.prepareCall("{call addrelative(?,?,?)}");
 			CallableStatement rstmt = mycon.prepareCall("{call getrelative(?)}");

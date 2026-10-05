@@ -23,9 +23,9 @@ public class LoginServlet extends HttpServlet {
 	java.sql.Statement mystmt = null;
 	java.sql.ResultSet myrs = null;
 	
-	String url = "jdbc:mysql://mysql.railway.internal:3306/omnidocs";
+	/*String url = "jdbc:mysql://mysql.railway.internal:3306/omnidocs";
 	String user = "root";
-	String password = "Pragati2008";
+	String password = "Pragati2008";*/
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -36,6 +36,15 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+	        // Initialize the connection inside the method where exceptions can be thrown or caught
+	        mycon = OmniDocs.DbConnection.getConnection();
+	        
+	        // ... Your database operations go here ...
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } 
 		response.setContentType("text/plain");
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
@@ -53,8 +62,8 @@ public class LoginServlet extends HttpServlet {
 		String cleanName = prefix.replaceAll("[^a-zA-Z0-9]", "_");
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");			
-			mycon = DriverManager.getConnection(url, user, password);
+	        mycon = OmniDocs.DbConnection.getConnection();
+
 			
 			CallableStatement mystmt = mycon.prepareCall("{call getuser(?)}");
 			

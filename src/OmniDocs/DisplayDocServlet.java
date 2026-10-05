@@ -24,10 +24,19 @@ public class DisplayDocServlet extends HttpServlet {
 	java.sql.ResultSet myrs = null;
 	java.sql.Connection mycon = null;
 	
-	String url = "jdbc:mysql://mysql.railway.internal:3306/omnidocs";
+	/*String url = "jdbc:mysql://mysql.railway.internal:3306/omnidocs";
 	String user = "root";
-	String password = "Pragati2008";
+	String password = "Pragati2008";*/
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+	        // Initialize the connection inside the method where exceptions can be thrown or caught
+	        mycon = OmniDocs.DbConnection.getConnection();
+	        
+	        // ... Your database operations go here ...
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } 
 		List<DocClass> docLst = new ArrayList<>();
 		
 		HttpSession session = request.getSession();
@@ -53,7 +62,7 @@ public class DisplayDocServlet extends HttpServlet {
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");			
-			mycon = DriverManager.getConnection(url, user, password);
+	        mycon = OmniDocs.DbConnection.getConnection();
 			
 			CallableStatement mystmt = mycon.prepareCall("{call getDoc(?)}");
 			
